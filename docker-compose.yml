@@ -1,0 +1,25 @@
+services:
+  hiaibe:
+    image: edwardcondon/hiaibe:latest
+    environment:
+      spring_profiles_active: docker
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 8005:8005
+    depends_on:
+      mysql:
+        condition: service_healthy
+        start_period: 30s
+        interval: 10s
+        timeout: 10s
+        retries: 5
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: users
+    healthcheck:
+      test: MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} --execute "SELECT 1;"

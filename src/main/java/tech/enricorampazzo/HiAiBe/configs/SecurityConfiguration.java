@@ -25,15 +25,23 @@ public class SecurityConfiguration {
     private AuthenticationProvider authenticationProvider;
     @Autowired
     private JWTAuthenticationFilter jwtAuthenticationFilter;
-    @Value("cors.allowed-origin")
+    @Value("${cors.allowed-origin}")
     private String corsAllowedOrigin;
-
+    @Value("${api.root}")
+    private String apiRoot;
+    @Value("${api.version}")
+    private String apiVersion;
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String authEndpoint = String.format("/%s/%s/auth", apiRoot, apiVersion);
+        String[] noAuthEndpoints = new String[]{String.format("%s/signup", authEndpoint),
+                String.format("%s/login", authEndpoint)};
+
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(ahr -> ahr.requestMatchers("/auth/signup", "/auth/login").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(ahr -> ahr.requestMatchers(noAuthEndpoints).permitAll().anyRequest()
+                        .authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -12,7 +12,7 @@ import tech.enricorampazzo.HiAiBe.services.UserService;
 
 import java.util.List;
 
-@RequestMapping("/users")
+@RequestMapping("${api.root}/${api.version}/user")
 @RestController
 public class UserController {
     @Autowired

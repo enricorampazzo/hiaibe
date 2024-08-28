@@ -14,7 +14,7 @@ import tech.enricorampazzo.HiAiBe.services.AuthenticationService;
 import tech.enricorampazzo.HiAiBe.services.JWTService;
 
 @RestController
-@RequestMapping(path="/auth")
+@RequestMapping(path="/${api.root}/${api.version}/auth")
 public class AuthenticationController {
     @Autowired
     private JWTService jwtService;

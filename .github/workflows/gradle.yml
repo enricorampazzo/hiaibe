@@ -47,7 +47,7 @@ jobs:
             DOCKER_HUB_LOGIN = ${{ secrets.DOCKER_HUB_LOGIN }}
             DOCKER_HUB_PASSWORD = ${{ secrets.DOCKER_HUB_PASSWORD }}
               
-      - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username ${DOCKER_HUB_LOGIN} --password-stdin && docker push hiaibe:latest
+          run: echo ${DOCKER_HUB_PASSWORD} | docker login --username ${DOCKER_HUB_LOGIN} --password-stdin && docker push hiaibe:latest
       
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).

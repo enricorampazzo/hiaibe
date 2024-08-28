@@ -39,7 +39,7 @@ jobs:
         run: gradle dockerCreateDockerfile
         
       - name: Build image from Dockerfile
-        run: docker build ${GITHUB_WORKSPACE}/build/docker -t hiaibe:latest
+        run: docker build ${GITHUB_WORKSPACE}/build/docker -t edwardcondon/hiaibe:latest
 
       - name: Login to docker hub and push image
         uses: docker/login-action@v3
@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: push image
-        run: docker push hiaibe:latest
+        run: docker push edwardcondon/hiaibe:latest
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
     #

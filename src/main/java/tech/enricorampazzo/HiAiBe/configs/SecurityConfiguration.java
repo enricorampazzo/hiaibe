@@ -1,6 +1,7 @@
 package tech.enricorampazzo.HiAiBe.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -24,6 +25,9 @@ public class SecurityConfiguration {
     private AuthenticationProvider authenticationProvider;
     @Autowired
     private JWTAuthenticationFilter jwtAuthenticationFilter;
+    @Value("cors.allowed-origin")
+    private String corsAllowedOrigin;
+
 
 
     @Bean
@@ -41,7 +45,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:8005"));
+        configuration.setAllowedOrigins(List.of(corsAllowedOrigin));
         configuration.setAllowedMethods(List.of("GET", "POST"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 

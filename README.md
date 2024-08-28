@@ -5,14 +5,15 @@ This is a _very_ basic spring boot application that includes spring-security.
 
 It publishes 4 endpoints:
 
-- /api/v1/auth/signup to register a new user
-- /api/v1/auth/login to login with an existing user
-- /api/v1/user to show the users currently registered
-- /api/v1/user/me to show the details of the logged-in user
+- `/api/v1/auth/signup` to register a new user
+- `/api/v1/auth/login` to login with an existing user
+- `/api/v1/user/me` to show the details of the logged-in user
 
-Authentication is implemented using the `Bearer` token, i.e. when you successfully login
-the server returns a JSON with a `token` field containing the token
-Subsequent calls to protected endpoints (under /api/v1/user) need to include the 
+Authentication is implemented using the `Bearer` JWT token, i.e. when you successfully login
+the server returns a JSON with a `token` field containing the token.
+
+
+Subsequent calls to protected endpoints (under `/api/v1/user`) need to include the 
 `Authorization` header with the value `Bearer <token>`
 
 Passwords are returned in the JSON responses so you can see that they are hashed
